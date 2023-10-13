@@ -15,15 +15,15 @@ const { euclideanDistance, manhattanDistance, encryptBiometrics, decryptBiometri
 const path = require('path')
 
 const app = express()
-app.use(cors())
+app.use(cors({}))
 app.use(express.json({limit: '5mb'}))
 const corsOptions = {
     origin: FRONTEND_URL
 }
-app.use(express.static('public'))
+app.use(express.static(__dirname))
 
 
-app.post('/api/auth/register', cors(corsOptions), async (req, res) => {
+app.post('/api/auth/register',  async (req, res) => {
 
     try {
         const { name, email, password, screenshot, descriptor } = req.body
@@ -82,8 +82,8 @@ app.post('/api/auth/register', cors(corsOptions), async (req, res) => {
     
 })
 
-app.post('/api/auth/login', cors(corsOptions), async (req, res) => {
-    
+app.post('/api/auth/login',  async (req, res) => {
+
     try {
         const { email, password, screenshot, descriptor } = req.body
 
@@ -99,7 +99,7 @@ app.post('/api/auth/login', cors(corsOptions), async (req, res) => {
         let threshold = 0.5
         let bestMatchUser = {}
         users.forEach(u => {
-            const iv = Buffer.from(u.init_vector, 'base64')
+            const iv = Buffer.from(u.init_vector || "", 'base64')
             const distance = euclideanDistance(descriptor, decryptBiometrics(u.face_descriptor, iv))
             if (distance < threshold) {
                 threshold = distance
@@ -122,6 +122,7 @@ app.post('/api/auth/login', cors(corsOptions), async (req, res) => {
                 {expiresIn: '2h' }
             )
             const image_path = path.join(__dirname, bestMatchUser.image_src)
+           
             let registerPic = ''
             fs.readFile(image_path, (e,c) => {
                 if (e) {
@@ -151,12 +152,12 @@ app.post('/api/auth/login', cors(corsOptions), async (req, res) => {
     }
 })
 
-app.post('/api/auth/logout', cors(corsOptions), auth, (req, res) => {
+app.post('/api/auth/logout',  auth, (req, res) => {
     // TODO: invalidate token
     return res.status(200).send('Logged out successfully!')
 })
 
-app.post('/api/image/get/from/url', cors(corsOptions), (req, res) => {
+app.post('/api/image/get/from/url',  (req, res) => {
     try {
         const { url } = req.body
         if (!(url)) {
@@ -178,7 +179,7 @@ app.post('/api/image/get/from/url', cors(corsOptions), (req, res) => {
 })
 
 
-app.post('/api/image/get/profile/pic', cors(corsOptions), auth, async (req, res) => {
+app.post('/api/image/get/profile/pic',  auth, async (req, res) => {
     
     try {
         const { email } = req.body
@@ -209,7 +210,7 @@ app.post('/api/image/get/profile/pic', cors(corsOptions), auth, async (req, res)
     }
 })
 
-app.post('/api/image/get/matches', cors(corsOptions), (req, res) => {
+app.post('/api/image/get/matches',  (req, res) => {
     try {
         const { target, threshold } = req.body
 

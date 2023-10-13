@@ -11,4 +11,4 @@ const userSchema = new mongoose.Schema({
     timestamp: { type: Date, default: new Date() }
 })
 
-module.exports = mongoose.model('user', userSchema)
+module.exports = mongoose.model('face', userSchema)
