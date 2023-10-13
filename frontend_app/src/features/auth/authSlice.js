@@ -77,7 +77,8 @@ export const loginUser = createAsyncThunk(
     async (credentials,{rejectWithValue}) => {
         let response = {}
         await axios.post(LOGIN_URL,
-                {...credentials}
+                {...credentials, headers: { 'Content-Type': 'application/x-www-form-urlencoded',        'Access-Control-Allow-Origin': '*',
+            }, crossdomain: true ,           }
             ).then(r => {
                 response = {status: r.status, data: r.data}
             }).catch(e => {

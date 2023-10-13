@@ -1,4 +1,4 @@
-const BACKEND_URL = 'http://localhost:3001'
+const BACKEND_URL = 'https://3001-shivangigat-facedetecti-e5u6d0tvfk0.ws-us105.gitpod.io'
 
 // BASE AUTH
 const AUTH_URL = '/api/auth'

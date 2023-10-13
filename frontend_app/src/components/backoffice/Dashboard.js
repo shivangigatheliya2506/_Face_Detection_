@@ -12,13 +12,7 @@ export const Dashboard = () => {
                 <div className="col-lg-3 my-box left-side">
                     <Menu />
                 </div>
-                <div className="col-lg-9 right-side">
-                    <div className="row">
-                        <Similarity />
-                        <Detection />
-                        <Matching />
-                    </div>
-                </div>
+              
             </div>        
         </div>
     )
