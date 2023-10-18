@@ -1,5 +1,4 @@
 const crypto = require ("crypto")
-const { PRIVATE_KEY } = process.env
 
 module.exports = {
     euclideanDistance: (featuresA, featuresB) => {
@@ -13,7 +12,7 @@ module.exports = {
     },
     encryptBiometrics: (decriptor, iv) => {
         const message = decriptor.join('###')
-        const cipher = crypto.createCipheriv('aes-256-cbc', PRIVATE_KEY, iv)
+        const cipher = crypto.createCipheriv('aes-256-cbc', "test", iv)
         let encryptedData = cipher.update(message, 'utf-8', 'hex')        
         encryptedData += cipher.final('hex')
         return encryptedData

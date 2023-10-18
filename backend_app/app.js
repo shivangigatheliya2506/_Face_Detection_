@@ -4,7 +4,6 @@ const express = require("express")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const User = require("./model/user")
-const { TOKEN_KEY, FRONTEND_URL } = process.env
 const cors = require("cors")
 const auth = require("./middleware/auth")
 const mimetypes = require("mime-types")
@@ -15,11 +14,9 @@ const { euclideanDistance, manhattanDistance, encryptBiometrics, decryptBiometri
 const path = require('path')
 
 const app = express()
-app.use(cors({}))
+app.use(cors())
 app.use(express.json({limit: '5mb'}))
-const corsOptions = {
-    origin: FRONTEND_URL
-}
+
 app.use(express.static(__dirname))
 
 
@@ -63,7 +60,7 @@ app.post('/api/auth/register',  async (req, res) => {
         console.log({user:user.name, email: user.email})
         const token = jwt.sign(
             { user_id: user._id, email },
-            TOKEN_KEY,
+            "test",
             { expiresIn: '2h' }
         )
 
@@ -118,7 +115,7 @@ app.post('/api/auth/login',  async (req, res) => {
         if ((await bcrypt.compare(password, bestMatchUser.password)) && (await bcrypt.compare(password, userByEmail.password))) {
             const token = jwt.sign(
                 { user_id: bestMatchUser._id, email },
-                process.env.TOKEN_KEY,
+                "test",
                 {expiresIn: '2h' }
             )
             const image_path = path.join(__dirname, bestMatchUser.image_src)

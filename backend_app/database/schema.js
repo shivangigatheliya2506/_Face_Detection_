@@ -1,10 +1,9 @@
 const mongoose = require("mongoose")
-const { MONGO_URI } = process.env
 
 exports.connect = () => {
 
     mongoose
-    .connect(MONGO_URI, {
+    .connect("mongodb+srv://lishugupta652:mongodc652@firstcluster.76qkd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
