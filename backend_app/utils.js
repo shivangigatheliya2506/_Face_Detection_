@@ -12,7 +12,8 @@ module.exports = {
     },
     encryptBiometrics: (decriptor, iv) => {
         const message = decriptor.join('###')
-        const cipher = crypto.createCipheriv('aes-256-cbc', "test", iv)
+        const key_in_bytes = Buffer.from("BASE_64_KEY", 'base64')
+        const cipher = crypto.createCipheriv('aes-256-cbc', key_in_bytes, iv)
         let encryptedData = cipher.update(message, 'utf-8', 'hex')        
         encryptedData += cipher.final('hex')
         return encryptedData
