@@ -1,5 +1,5 @@
 // const BACKEND_URL = 'https://3001-shivangigat-facedetecti-e5u6d0tvfk0.ws-us105.gitpod.io'
-const BACKEND_URL='https://3001-shivangigat-facedetecti-lc3a32pzcw1.ws-us105.gitpod.io'
+const BACKEND_URL='https://3002-shivangigat-facedetecti-lc3a32pzcw1.ws-us105.gitpod.io'
 
 // BASE AUTH
 const AUTH_URL = '/api/auth'
